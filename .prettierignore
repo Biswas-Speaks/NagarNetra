@@ -1,0 +1,7 @@
+.next
+node_modules
+public/sw.js
+supabase/*.sql
+docs
+package-lock.json
+next-env.d.ts

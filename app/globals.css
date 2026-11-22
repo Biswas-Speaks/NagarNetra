@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0b5fff;
+  --color-primary-dark: #0846c2;
+  --color-accent: #ff7a00;
+  --color-sev-1: #22c55e;
+  --color-sev-2: #84cc16;
+  --color-sev-3: #eab308;
+  --color-sev-4: #f97316;
+  --color-sev-5: #dc2626;
+  --font-sans: var(--font-inter), var(--font-odia), var(--font-deva), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+/* Leaflet controls sit above Tailwind stacking contexts */
+.leaflet-container {
+  font: inherit;
+  z-index: 0;
+}
