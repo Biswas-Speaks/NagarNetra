@@ -36,8 +36,32 @@ create policy "self profile" on profiles for select using (id = auth.uid());
 -- geocode_cache, ai_logs, rate_limits: no policies → service role only.
 -- No insert/update/delete policies for anon/authenticated → all writes via API.
 
+-- ── Table privileges ─────────────────────────────────────────────────────────
+-- Newer Supabase projects don't auto-grant API roles on tables created via SQL,
+-- so grant explicitly. RLS above still decides which rows each role can see.
+grant usage on schema public to anon, authenticated, service_role;
+
+-- Server (service-role / secret key): full access for API routes.
+-- (Listed explicitly: PostGIS objects in `public` belong to supabase_admin.)
+grant all on departments, profiles, incidents, reports, resolutions, status_log,
+             geocode_cache, ai_logs, rate_limits, public_incidents, department_scorecard
+  to service_role;
+grant all on sequence status_log_id_seq, ai_logs_id_seq to service_role;
+grant execute on function
+  hit_rate_limit(text, int, int),
+  recompute_priorities(),
+  find_duplicate_incident(double precision, double precision, incident_category, int)
+  to service_role;
+
+-- Public map/stats data (rows filtered by the policies above).
+grant select on incidents, status_log, departments, resolutions to anon, authenticated;
 grant select on public_incidents, department_scorecard to anon, authenticated;
 
--- Server-only RPCs must not be callable with the anon key.
+-- Staff-only data; RLS limits reports to the officer's department, profiles to self.
+grant select on reports, profiles to authenticated;
+
+-- Server-only RPCs must not be callable with the anon/publishable key.
 revoke execute on function hit_rate_limit(text, int, int) from public, anon, authenticated;
 revoke execute on function recompute_priorities() from public, anon, authenticated;
+revoke execute on function find_duplicate_incident(double precision, double precision, incident_category, int)
+  from public, anon, authenticated;

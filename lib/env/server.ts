@@ -11,16 +11,17 @@ const schema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
 
   GEMINI_API_KEY: z.string().min(1),
-  GEMINI_MODEL: z.string().min(1).default("gemini-2.5-flash"),
+  GEMINI_MODEL: z.string().min(1).default("gemini-3.1-flash-lite"),
   GROQ_API_KEY: optional,
   GROQ_STT_MODEL: z.string().default("whisper-large-v3-turbo"),
   GROQ_VISION_MODEL: optional,
-  GROQ_TEXT_MODEL: z.string().default("llama-3.3-70b-versatile"),
+  GROQ_TEXT_MODEL: z.string().default("openai/gpt-oss-120b"),
 
   NOMINATIM_USER_AGENT: z.string().default("NagarNetra/1.0"),
   CITY_NAME: z.string().default("Bhubaneswar"),
   CITY_CODE: z.string().default("BBS"),
-  CITY_BBOX: z.string().default("85.70,20.18,85.95,20.42"),
+  /** Optional service area "minLng,minLat,maxLng,maxLat". Empty = accept reports from anywhere. */
+  CITY_BBOX: optional,
 
   CRON_SECRET: optional,
   TELEGRAM_BOT_TOKEN: optional,

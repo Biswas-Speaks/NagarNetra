@@ -44,8 +44,10 @@ export const POST = handler(async (req: Request) => {
   assertSafePath(body.photo_path, "report");
   assertSafePath(body.audio_path, "report");
 
-  if (!inBBox(body.lat, body.lng, parseBBox(serverEnv().CITY_BBOX))) {
-    throw new ApiError(422, "OUT_OF_AREA", `This location is outside ${serverEnv().CITY_NAME}'s service area`);
+  // Service-area check only when CITY_BBOX is configured; the MVP accepts reports from anywhere.
+  const { CITY_BBOX, CITY_NAME } = serverEnv();
+  if (CITY_BBOX && !inBBox(body.lat, body.lng, parseBBox(CITY_BBOX))) {
+    throw new ApiError(422, "OUT_OF_AREA", `This location is outside ${CITY_NAME}'s service area`);
   }
 
   const result = await processReport({

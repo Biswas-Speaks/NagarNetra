@@ -1,18 +1,18 @@
 -- ═════════════════════════════════════════════════════════════════════════════
 -- NagarNetra — demo seed data (§23)
--- 12 departments + 40 synthetic Bhubaneswar incidents spread over 30 days.
+-- 12 generic city departments + 40 synthetic demo incidents (Bhubaneswar) over 30 days.
 -- Demo officer accounts are created by `npm run seed:demo` (needs Auth API).
 -- Safe to re-run: wipes previous demo incidents (ticket codes NN-BBS-D###).
 -- ═════════════════════════════════════════════════════════════════════════════
 
 insert into departments (code, name, name_or, categories, sla_hours) values
-  ('BMC_ROADS',  'Bhubaneswar Municipal Corporation — Roads', 'ଭୁବନେଶ୍ୱର ମହାନଗର ନିଗମ — ରାସ୍ତା', '{pothole_road_damage}', 72),
-  ('BMC_SWM',    'BMC — Solid Waste Management',  'ବିଏମସି — କଠିନ ବର୍ଜ୍ୟ ପରିଚାଳନା', '{garbage_waste}', 24),
-  ('BMC_DRAIN',  'BMC — Drainage',                'ବିଏମସି — ଡ୍ରେନେଜ',             '{sewage_drainage}', 48),
-  ('BMC_LIGHTS', 'BMC — Street Lighting',         'ବିଏମସି — ରାସ୍ତା ଆଲୋକ',          '{streetlight}', 48),
-  ('BMC_VET',    'BMC — Veterinary',              'ବିଏମସି — ପଶୁ ଚିକିତ୍ସା',          '{stray_animals}', 72),
-  ('BMC_ENF',    'BMC — Enforcement',             'ବିଏମସି — ଏନଫୋର୍ସମେଣ୍ଟ',         '{encroachment}', 120),
-  ('BMC_HORT',   'BMC — Horticulture / Parks',    'ବିଏମସି — ଉଦ୍ୟାନ',               '{tree_fall_obstruction}', 24),
+  ('BMC_ROADS',  'Municipal Corporation — Roads', 'ମହାନଗର ନିଗମ — ରାସ୍ତା', '{pothole_road_damage}', 72),
+  ('BMC_SWM',    'Municipal — Solid Waste Management',  'ପୌର ନିଗମ — କଠିନ ବର୍ଜ୍ୟ ପରିଚାଳନା', '{garbage_waste}', 24),
+  ('BMC_DRAIN',  'Municipal — Drainage',                'ପୌର ନିଗମ — ଡ୍ରେନେଜ',             '{sewage_drainage}', 48),
+  ('BMC_LIGHTS', 'Municipal — Street Lighting',         'ପୌର ନିଗମ — ରାସ୍ତା ଆଲୋକ',          '{streetlight}', 48),
+  ('BMC_VET',    'Municipal — Veterinary',              'ପୌର ନିଗମ — ପଶୁ ଚିକିତ୍ସା',          '{stray_animals}', 72),
+  ('BMC_ENF',    'Municipal — Enforcement',             'ପୌର ନିଗମ — ଏନଫୋର୍ସମେଣ୍ଟ',         '{encroachment}', 120),
+  ('BMC_HORT',   'Municipal — Horticulture / Parks',    'ପୌର ନିଗମ — ଉଦ୍ୟାନ',               '{tree_fall_obstruction}', 24),
   ('WATER',      'Water Supply Utility',          'ଜଳ ଯୋଗାଣ ସଂସ୍ଥା',               '{water_leak_supply}', 24),
   ('POWER',      'Electricity Distribution Utility', 'ବିଦ୍ୟୁତ ବଣ୍ଟନ ସଂସ୍ଥା',         '{electricity_hazard}', 6),
   ('POLLUTION',  'State Pollution Control Board', 'ରାଜ୍ୟ ପ୍ରଦୂଷଣ ନିୟନ୍ତ୍ରଣ ବୋର୍ଡ',      '{air_pollution,water_pollution,noise_pollution}', 96),

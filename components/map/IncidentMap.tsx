@@ -26,6 +26,7 @@ function Layers({ incidents, heatmap, popupHtml }: IncidentMapProps) {
   const map = useMap();
   const clusterRef = useRef<L.MarkerClusterGroup | null>(null);
   const heatRef = useRef<L.Layer | null>(null);
+  const fittedRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -33,6 +34,12 @@ function Layers({ incidents, heatmap, popupHtml }: IncidentMapProps) {
       if (cancelled) return;
       clusterRef.current?.remove();
       heatRef.current?.remove();
+
+      // Reports can come from anywhere — frame them once on first load.
+      if (!fittedRef.current && incidents.length) {
+        fittedRef.current = true;
+        map.fitBounds(L.latLngBounds(incidents.map((i) => [i.lat, i.lng])), { padding: [40, 40], maxZoom: 15 });
+      }
 
       if (heatmap) {
         heatRef.current = L.heatLayer(
